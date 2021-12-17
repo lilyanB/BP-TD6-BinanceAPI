@@ -9,6 +9,17 @@ import hashlib
 import requests
 from urllib.parse import urljoin, urlencode
 
+API_KEY = 'use your API_KEY'
+SECRET_KEY = 'use your SECRET_KEY'
+BASE_URL = 'https://api.binance.com/'
+PATH = 'api/v3/order/test'
+
+
+headers = {
+    'Content-Type': 'application/json',
+    'X-MBX-APIKEY': API_KEY
+}
+
 def listAsset():
     r = requests.get("https://api.binance.com/api/v3/exchangeInfo")
     results = r.json()
@@ -63,17 +74,6 @@ def candleModify():
     conn.close
     return('succes')
     
-
-API_KEY = 'use your API_KEY'
-SECRET_KEY = 'use your SECRET_KEY'
-BASE_URL = 'https://api.binance.com/'
-PATH = 'api/v3/order/test'
-
-
-headers = {
-    'Content-Type': 'application/json',
-    'X-MBX-APIKEY': API_KEY
-}
 def createOrder(api_key, secret_key, direction, price, amount, pair, orderType):
   timestamp = int(time.time() * 1000)
   params = {
