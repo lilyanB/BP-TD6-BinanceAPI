@@ -1,13 +1,11 @@
 import requests
 import pandas as pd
 import sqlite3
-
 import time
 import json
 import hmac
 import hashlib
-import requests
-from urllib.parse import urljoin, urlencode
+from urllib.parse import urlencode
 
 API_KEY = 'use your API_KEY'
 SECRET_KEY = 'use your SECRET_KEY'
