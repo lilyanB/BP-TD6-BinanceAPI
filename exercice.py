@@ -93,8 +93,6 @@ def createOrder(api_key, secret_key, direction, price, amount, pair, orderType):
       data = r.json()
       print(json.dumps(data, indent=2))
       #return data
-données = createOrder(API_KEY,SECRET_KEY,"SELL","500.0","0.1","ETHUSDT","LIMIT")
-print(données)
 
 def cancelOrder(symbol,orderId):
     secret = SECRET_KEY
@@ -106,7 +104,7 @@ def cancelOrder(symbol,orderId):
         'X-MBX-APIKEY': API_KEY
     }
     r=requests.delete(BASE_URL+"/api/v3/order?symbol="+symbol+"&orderId="+orderId+"&timestamp="+str(timestamp)+"&signature="+signature,headers=headers)
-    print(r.text)
+    return(r.text)
 
 
 
@@ -119,3 +117,6 @@ if __name__ == '__main__':
     #print(refreshDataCandle("BTCUSDT", "5m"))
     #print(initDB())
     #print(candleModify())
+    #print(createOrder(API_KEY,SECRET_KEY,"SELL","500.0","0.1","ETHUSDT","LIMIT"))
+    #print(cancelOrder("ETHUSDT", "yourID"))
+    print("bien jouer")

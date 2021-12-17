@@ -1,6 +1,6 @@
 # BP-TD6-BinanceAPI
 
-Lilyan BASTIEN 2021 <br />
+Lilyan BASTIEN<br />
 Théo EVERAERE
 
 ## Binance API
