@@ -96,6 +96,18 @@ def createOrder(api_key, secret_key, direction, price, amount, pair, orderType):
 données = createOrder(API_KEY,SECRET_KEY,"SELL","500.0","0.1","ETHUSDT","LIMIT")
 print(données)
 
+def cancelOrder(symbol,orderId):
+    secret = SECRET_KEY
+    timestamp = requests.get(BASE_URL + "/api/v3/time").json()["serverTime"]
+    query_string = "symbol="+symbol+"&orderId="+orderId+"&timestamp="+str(timestamp)
+    signature = hmac.new(secret.encode('utf-8'), query_string.encode('utf-8'), hashlib.sha256).hexdigest()
+    headers = {
+        'Content-Type': 'application/json',
+        'X-MBX-APIKEY': API_KEY
+    }
+    r=requests.delete(BASE_URL+"/api/v3/order?symbol="+symbol+"&orderId="+orderId+"&timestamp="+str(timestamp)+"&signature="+signature,headers=headers)
+    print(r.text)
+
 
 
 
