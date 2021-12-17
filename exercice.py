@@ -33,7 +33,14 @@ def refreshDataCandle(pair, Interval):
     r = requests.get("https://api.binance.com/api/v3/klines", params=dict(symbol=pair, interval= Interval))
     results = r.json()
     print(results)
-    return(results[1])
+
+    print("hight " + results[-1][2])
+    print("low " + results[-1][3])
+    print("open " + results[-1][1])
+    print("close " + results[-1][4])
+    print("volume " + results[-1][5])
+
+    return(results)
 
 
 def initDB():
@@ -43,6 +50,7 @@ def initDB():
     cur.execute(req)
     conn.commit()
     conn.close
+    return('succes')
 
 def candleModify():
     conn = sqlite3.connect('myDB.db')
@@ -53,10 +61,11 @@ def candleModify():
     cur.execute(req, values)
     conn.commit()
     conn.close
+    return('succes')
+    
 
-
-API_KEY = 'HfZyng5y8XJZAs37J9uV3bhwWGVODNWAmEoctEqe7MPnFaEKvaNo98SnXItl1n7s'
-SECRET_KEY = 'uwPBFzyMuM2hg9PjwQV518AR3ULuu2ZsZftlinVckrRIEPSU7pwnwqJpLGJayEi5'
+API_KEY = 'use your API_KEY'
+SECRET_KEY = 'use your SECRET_KEY'
 BASE_URL = 'https://api.binance.com/'
 PATH = 'api/v3/order/test'
 
@@ -90,10 +99,11 @@ print(données)
 
 
 
-
-
-#print(listAsset())
-#print(getDepth("BTCBUSD","bids"))
-#print(getDepth("BTCBUSD","asks"))
-#print(getOrderBook("BTCBUSD"))
-print(refreshDataCandle("BTCBUSD","5m"))
+if __name__ == '__main__':
+    #print(listAsset())
+    #print(getDepth("BTCBUSD","bids"))
+    #print(getDepth("BTCBUSD","asks"))
+    #print(getOrderBook("BTCBUSD"))
+    #print(refreshDataCandle("BTCUSDT", "5m"))
+    #print(initDB())
+    #print(candleModify())
