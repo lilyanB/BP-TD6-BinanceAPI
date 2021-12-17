@@ -2,6 +2,12 @@ import requests
 import pandas as pd
 import sqlite3
 
+import time
+import json
+import hmac
+import hashlib
+import requests
+from urllib.parse import urljoin, urlencode
 
 def listAsset():
     r = requests.get("https://api.binance.com/api/v3/exchangeInfo")
@@ -9,20 +15,19 @@ def listAsset():
     for s in results['symbols']:
         print(s['symbol'])
 
+
+
 def getDepth(SYMBOLE,INFO):
   r = requests.get("https://api.binance.com/api/v3/depth", params=dict(symbol=SYMBOLE))
   results = r.json()
   frames = {side: pd.DataFrame(data=results[side], columns=["price", "quantity"], dtype=float) for side in [INFO]}
   return(frames)
 
-print(getDepth("BTCBUSD","bids"))
-print(getDepth("BTCBUSD","asks"))
-
 
 def getOrderBook(SYMBOLE):
-    r = requests.get("https://api.binance.com/api/v3/depth", params=dict(symbol=SYMBOLE))
-    data = r.json()
-    return (data['bids'], data['asks'])
+    limite = 50
+    r=requests.get("https://api.binance.com/api/v3/depth" + "?symbol=" + SYMBOLE +"&limit=" + str(limite))
+    return (r.json()['asks'],r.json()['bids'])
 
 def refreshDataCandle(pair, Interval):
     r = requests.get("https://api.binance.com/api/v3/klines", params=dict(symbol=pair, interval= Interval))
@@ -48,16 +53,6 @@ def candleModify():
     cur.execute(req, values)
     conn.commit()
     conn.close
-
-
-
-
-import time
-import json
-import hmac
-import hashlib
-import requests
-from urllib.parse import urljoin, urlencode
 
 
 API_KEY = 'HfZyng5y8XJZAs37J9uV3bhwWGVODNWAmEoctEqe7MPnFaEKvaNo98SnXItl1n7s'
@@ -91,3 +86,14 @@ def createOrder(api_key, secret_key, direction, price, amount, pair, orderType):
       #return data
 données = createOrder(API_KEY,SECRET_KEY,"SELL","500.0","0.1","ETHUSDT","LIMIT")
 print(données)
+
+
+
+
+
+
+#print(listAsset())
+#print(getDepth("BTCBUSD","bids"))
+#print(getDepth("BTCBUSD","asks"))
+#print(getOrderBook("BTCBUSD"))
+print(refreshDataCandle("BTCBUSD","5m"))
